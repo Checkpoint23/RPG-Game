@@ -12,3 +12,5 @@ AttributeError: type object 'fightEnemy' has no attribute 'enemy'
 ayrtonferguson@Ayrtons-MacBook-Air RPG Game % 
 
 When linking to another script, I get this error. I do not know why this happens, but fightEnemy does contain attribute 'enemy'
+
+Done some editing and made my first commit.
