@@ -2,10 +2,10 @@ import enemyBattle
 
 class battle:
     enemyTypeWorld1 = ["goblin", "boulderman", "slime"]
-    enemyStatHealthWorld1 = [5, 15, 10]
-    enemyStatBDamageWorld1 = [3, 1, 2]
-    enemyStatMinDamageWorld1 = [5, 1, 3]
-    enemyStatMaxDamgeWorld1 = [15, 10, 4]
+    enemyStatHealthWorld1 = [5,15,10]
+    enemyStatBDamageWorld1 = [3,1,2]
+    enemyStatMinDamageWorld1 = [5,1,2]
+    enemyStatMaxDamgeWorld1 = [15,10,4]
     maxPlayerHealth = 15
     
     def selectEnemyWorld (world):

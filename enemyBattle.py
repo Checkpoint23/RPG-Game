@@ -1,8 +1,9 @@
 import random
+import math
 
 enemyTypeWorld1 = ["goblin", "boulderman", "slime"]
-enemyStatHealthWorld1 = [5, 15, 10]
-enemyStatBDamageWorld1 = [3, 1, 2]
+enemyStatHealthWorld1 = [5,15,10]
+enemyStatBDamageWorld1 = [3,1,2]
 enemyStatMinDamageWorld1 = [5,1,2]
 enemyStatMaxDamgeWorld1 = [15,10,4]
 
@@ -29,6 +30,7 @@ class fightEnemy:
         print(f"{enemy} appeared")
     def yourTurn (enemy, yourBDamge, yourMinDamage, yourMaxDamage):
         global health
+        global playerHealth
         global enemyAlive
         print("It is your turn")
         print(f"{enemy} has {health} health.")
@@ -47,9 +49,30 @@ class fightEnemy:
                 print(f"You did {damage} damage!")
                 print(f"{enemy} has {health} health left.")
             if choice == "2":
-                print("this hasnt been implemented yet lmao")
+                print("Which spell do you want to use:")
+                print("1: Fireball! Costs 15 mana, deals +5 bonus damage!")
+                print("2: Heal! Costs 15 mana, gives you 25% extra of your current health")
+                spell = input("")
+                if spell != "1" and spell != "2":
+                    print("Invalid Input")
+                else:
+                    spell = spell
+                    if spell == "1":
+                        damage = random.randint(yourMinDamage, yourMaxDamage) + yourBDamge + 5
+                        health -= damage
+                        if health <= 0:
+                            print(f"You did {damage} damage, and killed {enemy}")
+                            enemyAlive = False
+                            return
+                        print(f"You did {damage} damage")
+                        print(f"{enemy} has {health} health left.")
+                    if spell == "2":
+                        increasedHealth = math.ceil(playerHealth/4)
+                        playerHealth += increasedHealth
+                        print(f"You gained {increasedHealth} health, and now have {playerHealth} HP!")
             if choice == "3":
                 print("this hasnt been implemented yet lmao")
+
     def theirTurn (enemy):
         global health
         global enemyBDamage
@@ -82,7 +105,6 @@ class fightEnemy:
                 playerHealth -= damage
                 print(f"Goblin deals {damage} damage!")
                 print(f"You have {playerHealth} health left.")
-
             if health == 5:
                 print("Goblin increases his health by 1!")
                 health += 1
@@ -97,5 +119,19 @@ class fightEnemy:
                 print("Goblin resets his health to 5!")
                 health = 5
         if enemy == "boulderman":
-            print("Boulderman uses Boulder!")
+            move = random.randint(1,2)
+            if move == 1:
+                print("Boulderman increases his health by 3!")
+                health += 3
+            if move == 2:
+                print("Boulderman uses Boulder-Smash!")
+                damage = random.randint(enemyMinDamage, enemyMaxDamage) + enemyBDamage
+                playerHealth -= damage
+                print(f"Boulderman dealt {damage} damage")
+                if playerHealth > 0:
+                    print(f"You have {playerHealth} health left.")
+                else:
+                    print(f"You died lol")
+                    return
+
 
