@@ -22,7 +22,6 @@ class battle:
             )
 
     def runBattle ():
-        print(enemyBattle.playerHealth)
         enemyBattle.fightEnemy.beginBattle(enemyBattle.enemy)
         while enemyBattle.enemyAlive and enemyBattle.playerHealth > 0:
             enemyBattle.fightEnemy.theirTurn(enemyBattle.enemy)

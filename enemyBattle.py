@@ -40,6 +40,7 @@ class fightEnemy:
         global bonusHP
         print("It is your turn")
         print(f"{enemy} has {health} health.")
+        print(f"You have {playerHealth} health")
         print(f"You have {mana} mana")
         print(f"You can 1: Fight, 2: Use magic, 3: Block")
         choice = input("")
