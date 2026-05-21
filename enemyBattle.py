@@ -102,23 +102,22 @@ class fightEnemy:
         global playerHealth
         global bonusHP
         print(f"It is {enemy}'s turn.")
-        if enemy == "slime":
+        if enemy == "slime": ## Slime 
             attack = random.randint(1,3)
-            if attack == 1:
+            if attack == 1: #Slime hp gain
                 print("Slime uses bounce")
                 enemyBDamage += + 1
                 print("His bonus damage increases by 1.")
-            if attack == 2:
+            if attack == 2: #Slime Damage gain
                 print("Slime uses absorb mass!")
                 gainHealth = random.randint(1, 3)
                 health += gainHealth
                 print(f"Slime gained {gainHealth} health")
-            if attack == 3:
+            if attack == 3: # Slime fights
                 print("Slime uses blunt force!")
                 damage = random.randint(enemyMinDamage, enemyMaxDamage) + enemyBDamage
-                playerHealth -= damage
                 print(f"Slime dealt {damage} Damage!")
-                if bonusHP > 0:
+                if bonusHP > 0: 
                     if damage <= bonusHP:
                         print(f"You blocked all damage.")
                         bonusHP = 0
