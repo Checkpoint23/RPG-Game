@@ -167,6 +167,7 @@ class fightEnemy:
                 print("Goblin dances around and does nothing!")
             if health == 3 or health == 2:
                 print("Goblin attacks you with a knife")
+                damage = random.randint(enemyMinDamage, enemyMaxDamage) + enemyBDamage
                 if bonusHP > 0:
                     if damage <= bonusHP:
                         print(f"You blocked all damage.")
