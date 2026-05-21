@@ -7,6 +7,7 @@ class battle:
     enemyStatMinDamageWorld1 = [5,1,2]
     enemyStatMaxDamgeWorld1 = [15,10,4]
     maxPlayerHealth = 15
+    mana = 15
     
     def selectEnemyWorld (world):
         if world == 1:
@@ -17,6 +18,7 @@ class battle:
                 battle.enemyStatMinDamageWorld1,
                 battle.enemyStatMaxDamgeWorld1,
                 battle.maxPlayerHealth,
+                battle.mana
             )
 
     def runBattle ():
