@@ -44,10 +44,60 @@ class fightEnemy:
         print(f"You have {mana} mana")
         print(f"You can 1: Fight, 2: Use magic, 3: Block")
         choice = input("")
-        if choice != "1" and choice != "2" and choice != "3":
-            print("Invalid input")
-        else:
-            if choice == "1":
+        while choice != "1" and choice != "2" and choice != "3":
+            if choice != "1" and choice != "2" and choice != "3":
+                print(f"You can 1: Fight, 2: Use magic, 3: Block")
+                choice = input("")
+        if choice == "1":
+            damage = random.randint(yourMinDamage, yourMaxDamage) + yourBDamge
+            health -= damage
+            if health <= 0:
+                print(f"You did {damage} damage, and killed {enemy}")
+                enemyAlive = False
+                return
+            print(f"You did {damage} damage!")
+            print(f"{enemy} has {health} health left.")
+        if choice == "2":
+            print("Which spell do you want to use:")
+            print("1: Fireball! Costs 15 mana, deals +5 bonus damage!")
+            print("2: Heal! Costs 15 mana, gives you 25% extra of your current health")
+            print(f"Type these numbers if you decide otherwise. Remember, you have {mana} mana.")
+            print("3: Go back and attack.")
+            print("4: Go back and block.")
+            spell = input("")
+            while spell != "1" and spell != "2" and spell!= "3" and spell != "4":
+                if spell != "1" and spell != "2":
+                    print("Which spell do you want to use:")
+                    print("1: Fireball! Costs 15 mana, deals +5 bonus damage!")
+                    print("2: Heal! Costs 15 mana, gives you 25% extra of your current health")
+                    print(f"Type these numbers if you decide otherwise. Remember, you have {mana} mana.")
+                    print("3: Go back and attack.")
+                    print("4: Go back and block.")
+                    spell = input("")
+            if spell == "1":
+                if mana >= 15:
+                    damage = random.randint(yourMinDamage, yourMaxDamage) + yourBDamge + 5
+                    health -= damage
+                    mana -= 15
+                    if health <= 0:
+                        print(f"You did {damage} damage, and killed {enemy}")
+                        enemyAlive = False
+                        return
+                    print(f"You did {damage} damage")
+                    print(f"{enemy} has {health} health left.")
+                else:
+                    print("You don't have enough mana.")
+                    print(f"You only had {mana} mana, but you needed 15 mana.")
+            if spell == "2":
+                if mana >= 15:
+                    increasedHealth = math.ceil(playerHealth/4)
+                    playerHealth += increasedHealth
+                    mana -= 15
+                    print(f"You gained {increasedHealth} health, and now have {playerHealth} HP!")
+                else:
+                    print("You don't have enough mana!")
+                    print(f"You only had {mana} mana, but you needed 15 mana.")
+            if spell == 3:
                 damage = random.randint(yourMinDamage, yourMaxDamage) + yourBDamge
                 health -= damage
                 if health <= 0:
@@ -56,44 +106,18 @@ class fightEnemy:
                     return
                 print(f"You did {damage} damage!")
                 print(f"{enemy} has {health} health left.")
-            if choice == "2":
-                print("Which spell do you want to use:")
-                print("1: Fireball! Costs 15 mana, deals +5 bonus damage!")
-                print("2: Heal! Costs 15 mana, gives you 25% extra of your current health")
-                spell = input("")
-                if spell != "1" and spell != "2":
-                    print("Invalid Input")
-                else:
-                    spell = spell
-                    if spell == "1":
-                        if mana >= 15:
-                            damage = random.randint(yourMinDamage, yourMaxDamage) + yourBDamge + 5
-                            health -= damage
-                            mana -= 15
-                            if health <= 0:
-                                print(f"You did {damage} damage, and killed {enemy}")
-                                enemyAlive = False
-                                return
-                            print(f"You did {damage} damage")
-                            print(f"{enemy} has {health} health left.")
-                        else:
-                            print("You don't have enough mana.")
-                            print(f"You only had {mana} mana, but you needed 15 mana.")
-                    if spell == "2":
-                        if mana >= 15:
-                            increasedHealth = math.ceil(playerHealth/4)
-                            playerHealth += increasedHealth
-                            mana -= 15
-                            print(f"You gained {increasedHealth} health, and now have {playerHealth} HP!")
-                        else:
-                            print("You don't have enough mana!")
-                            print(f"You only had {mana} mana, but you needed 15 mana.")
-            if choice == "3":
+            if spell == 4:
                 manaGain = random.randint(1, math.floor((mana*1.5)+5))
                 mana += manaGain
                 print(f"You gained {manaGain} mana!")
                 bonusHP = random.randint(1, math.floor(playerHealth/3))
                 print(f"You will block up to {bonusHP} damage this round.")
+        if choice == "3":
+            manaGain = random.randint(1, math.floor((mana*1.5)+5))
+            mana += manaGain
+            print(f"You gained {manaGain} mana!")
+            bonusHP = random.randint(1, math.floor(playerHealth/3))
+            print(f"You will block up to {bonusHP} damage this round.")
 
     def theirTurn (enemy):
         global health
@@ -218,5 +242,3 @@ class fightEnemy:
                 else:
                     print(f"You died lol")
                     return
-
-
