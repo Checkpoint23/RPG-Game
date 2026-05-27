@@ -1,4 +1,4 @@
-import startBattle
+import MovementManager
 
-startBattle.battle.selectEnemyWorld(world=1)
-startBattle.battle.runBattle()
+MovementManager.roomMovement.setUpRooms()
+MovementManager.roomMovement.gameplayLoop()
