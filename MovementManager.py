@@ -1,7 +1,5 @@
 import Movement
-
-roomX = 5
-roomY = 6
+import time
 
 class roomMovement:
     def SetCurrentRoom(newRoomX, newRoomY):
@@ -17,7 +15,7 @@ class roomMovement:
             "none", #treasure
             True, #encounterEnemy?
             60, #chanceofEncounter
-            "Around you, you see a chest to the east of your position, about 2 kilometers away. The trees have leaves as green as the grass, and the sunshine beams down on you.", #description
+            "Around you, you see a chest to the west of your position, about 2 kilometers away. The trees have leaves as green as the grass, and the sunshine beams down on you.", #description
             "none", #Gate?
             "none", #Boss
             "none", #worldGate
@@ -46,7 +44,7 @@ class roomMovement:
             "You arrive at the chest. Inside, sits the blue key.", #description
             "none", #Gate?
             "none", #Boss
-            "none", #worldGate,
+            "none", #worldGate
             "none" #quest
         )
         Movement.moving.addRoom(
@@ -122,7 +120,7 @@ class roomMovement:
             False, #encounterEnemy?
             0, #chanceofEncounter
             "You encounter a chest beyond the gate. You open it. All of a sudden, a tongue jumps out at you! It was no chest, it was a mimic!", #description
-            "none", #Gate?
+            "RGBYN", #Gate?
             "Mimic", #Boss
             "none", #worldGate
             "none" #quest
@@ -200,7 +198,7 @@ class roomMovement:
             True, #encounterEnemy?
             40, #chanceofEncounter
             "You approach a gate. It has four locks on it. A red lock, a green lock, a blue lock, and a yellow lock.", #description
-            "RGBYN", #Gate?
+            "none", #Gate?
             "Mimic", #Boss
             "none", #worldGate
             "none" #quest
@@ -394,7 +392,7 @@ class roomMovement:
             "none", #treasure
             False, #encounterEnemy?
             50, #chanceofEncounter
-            "Exiting the creek, there is a mountain blocking the way south and west. The only new direction is west. In the distance, something is glittery to the west.", #description
+            "Exiting the creek, there is a mountain blocking the way south and west. The only new direction is east. In the east, something is glittery.", #description
             "none", #Gate?
             "none", #Boss
             "none", #worldGate
@@ -407,7 +405,7 @@ class roomMovement:
             "none", #treasure
             True, #encounterEnemy?
             100, #chanceofEncounter
-            "Moving west, the glittering thing gets closer. Southward lies a valley now.", #description
+            "Moving east, the glittering thing gets closer. Southward lies a valley now.", #description
             "none", #Gate?
             "none", #Boss
             "none", #worldGate
@@ -472,7 +470,7 @@ class roomMovement:
             "none", #treasure
             True, #encounterEnemy?
             60, #chanceofEncounter
-            "Arriving at the ned of the tunnel, the only way to progress is west. Something is glittering west.", #description
+            "Arriving at the end of the tunnel, the only way to progress is west. Something is glittering west.", #description
             "none", #Gate?
             "none", #Boss
             "none", #worldGate
@@ -637,6 +635,8 @@ class roomMovement:
     def gameplayLoop():
         global roomX
         global roomY
-        while True == False:
+        game = True
+        while game == True:
+            time.sleep(0.05)
             Movement.moving.roomFunctions(currentRoomX=roomX, currentRoomY=roomY)
             Movement.moving.fromRoom(currentRoomX=roomX, currentRoomY=roomY)
