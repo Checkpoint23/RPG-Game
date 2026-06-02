@@ -195,11 +195,11 @@ class roomMovement:
             3, #y
             1, #world
             "none", #treasure
-            True, #encounterEnemy?
-            40, #chanceofEncounter
+            False, #encounterEnemy?
+            0, #chanceofEncounter
             "You approach a gate. It has four locks on it. A red lock, a green lock, a blue lock, and a yellow lock.", #description
             "none", #Gate?
-            "Mimic", #Boss
+            "none", #Boss
             "none", #worldGate
             "none" #quest
         )
@@ -299,7 +299,7 @@ class roomMovement:
             4, #y
             1, #world
             "none", #treasure
-            True, #encounterEnemy?
+            False, #encounterEnemy?
             50, #chanceofEncounter
             "You continue through to the end of the valley. Up north, something is glinting, though its hard to make it out", #description
             "none", #Gate?

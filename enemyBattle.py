@@ -113,11 +113,12 @@ class fightEnemy:
                 bonusHP = random.randint(1, math.floor(playerHealth/3))
                 print(f"You will block up to {bonusHP} damage this round.")
         if choice == "3":
-            manaGain = random.randint(1, math.floor((mana*1.5)+5))
-            mana += manaGain
-            print(f"You gained {manaGain} mana!")
-            bonusHP = random.randint(1, math.floor(playerHealth/3))
-            print(f"You will block up to {bonusHP} damage this round.")
+            if playerHealth > 0:
+                manaGain = random.randint(1, math.floor((mana*1.5)+5))
+                mana += manaGain
+                print(f"You gained {manaGain} mana!")
+                bonusHP = random.randint(1, math.floor(playerHealth/3))
+                print(f"You will block up to {bonusHP} damage this round.")
 
     def theirTurn (enemy):
         global health

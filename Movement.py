@@ -58,6 +58,7 @@ class moving:
                 gate = room[7]
                 x = room[0]
                 y = room[1]
+                boss = room[8]
                 for room2 in rooms:
                     if room2[1] == currentRoomY - 1 and room2[0] == currentRoomX:
                         if room2[7] != "none":
@@ -76,6 +77,9 @@ class moving:
             if doAFight <= encounterChance:
                 startBattle.battle.selectEnemyWorld(world=world)
                 startBattle.battle.runBattle()
+        if boss != "none" and beenHere == False:
+            if boss == "Mimic":
+                startBattle.battle.fightBoss("Mimic")
         if treasure != "none" and beenHere == False:
             if treasure == "R":
                 print("You got the Red Key!")

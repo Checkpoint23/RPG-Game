@@ -1,4 +1,5 @@
 import enemyBattle
+import bossMimic
 
 class battle:
     enemyTypeWorld1 = ["goblin", "boulderman", "slime"]
@@ -24,7 +25,22 @@ class battle:
     def runBattle ():
         enemyBattle.fightEnemy.beginBattle(enemyBattle.enemy)
         while enemyBattle.enemyAlive and enemyBattle.playerHealth > 0:
-            enemyBattle.fightEnemy.theirTurn(enemyBattle.enemy)
-            if not enemyBattle.enemyAlive or enemyBattle.playerHealth <= 0:
-                break
-            enemyBattle.fightEnemy.yourTurn(enemyBattle.enemy, 2, 1, 5)
+            if enemyBattle.enemyAlive: enemyBattle.fightEnemy.theirTurn(enemyBattle.enemy)
+            else: return
+            if enemyBattle.playerHealth > 0: enemyBattle.fightEnemy.yourTurn(enemyBattle.enemy, 2, 1, 5)
+            else: return
+    
+    def fightBoss(boss):
+        if boss == "Mimic":
+            bossMimic.MIMIC.setup(
+                playersHealth=battle.maxPlayerHealth,
+                playerBDamage = 2,
+                playerMinDamage = 1,
+                playerMaxDamage = 5,
+                playerMana= battle.mana
+                )
+        while bossMimic.enemyAlive and bossMimic.playerHealth > 0:
+            if bossMimic.enemyAlive: bossMimic.MIMIC.mimicsTurn()
+            else: return
+            if bossMimic.playerHealth > 0: bossMimic.MIMIC.PlayersTurn() 
+            else: return
