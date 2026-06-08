@@ -1,6 +1,8 @@
 import MovementManager
 import random
 import startBattle
+import sys
+import time
 
 rooms = []
 inventory=[]
@@ -11,7 +13,6 @@ RGBYGateOpen=False
 class moving:
     def addRoom(x,y,worldType,treasure,encounterPossible,encounterChance,desc,gate,boss,worldGate,quest):
         global rooms
-
         rooms.append((x,y,worldType,treasure,encounterPossible,encounterChance,desc,gate,boss,worldGate,quest,False))
         ##Tag out when not testing errors
 #        for room in rooms:
@@ -38,6 +39,7 @@ class moving:
     def roomFunctions(currentRoomX, currentRoomY):
         global RGBYGateOpen
         global rooms
+        global inventory
         beenHere = False
         roomsBeenIn = 0
         for room in rooms:
@@ -59,6 +61,7 @@ class moving:
                 x = room[0]
                 y = room[1]
                 boss = room[8]
+                worldgate = room[9]
                 for room2 in rooms:
                     if room2[1] == currentRoomY - 1 and room2[0] == currentRoomX:
                         if room2[7] != "none":
@@ -67,6 +70,8 @@ class moving:
             print(desc)
         else:
             print("You've been here before!")
+        if x == 5 and y == 3:
+            startBattle.battle.save(x,y,world,beenToRooms,inventory,questlog)
         if encounter == True and beenHere == False:
             doAFight = random.randint(1,100)
             if doAFight <= encounterChance:
@@ -80,6 +85,8 @@ class moving:
         if boss != "none" and beenHere == False:
             if boss == "Mimic":
                 startBattle.battle.fightBoss("Mimic")
+                print("After defeating the mimic, you feel something. The feeling of remembrance, that you will remember this place.")
+                startBattle.battle.save(x,y,world,beenToRooms,inventory,questlog)
         if treasure != "none" and beenHere == False:
             if treasure == "R":
                 print("You got the Red Key!")
@@ -94,30 +101,35 @@ class moving:
                 print("You got the Yellow Key")
                 inventory.append("Yellow Key")
             if treasure == "H-5":
-                print("PLACEHOLDER REMOVE LATER")
+                startBattle.battle.changeStats("H", 5)
             if treasure == "G-50":
-                print("PLACEHOLDER REMOVE LATER")
                 inventory.append("50 Gold Pieces")
             if treasure == "Ring":
                 print("Ring has been added to your inventory!")
                 inventory.append("Ring")
         if quest != "none":
-            if quest == "Ring" and beenHere != False:
+            if quest == "Ring" and beenHere == False:
                 print("I've lost my precious ring! Can you find it for me! If you do, I'll teach you about hitting stronger consistently!")
                 print("This seems important. Quest added to your questlog!")
                 questlog.append("Help find the ladies missing ring! If you do, you'll be taught how to hit stronger more consistently.")
-            else:
+                for i in inventory():
+                    if i == "Ring":
+                        print("You already have my precious ring! Here, I'll teach you now!")
+                        tempVar = i
+                        inventory.remove(tempVar)
+                        startBattle.battle.changeStats("MD", 1)
+                        print("Your minimum and maximum damage increased by 1!")
+            elif quest == "Ring" and beenHere == True:
                 for i in questlog:
                     if i == ("Help find the ladies missing ring! If you do, you'll be taught how to hit stronger more consistently."):
                         for i in inventory():
                             if i == "Ring":
                                 print("You've found my precious ring! Thank you so much! Let me teach you.")
-                                inventory.remove(i)
-                                #minDamage += 1
-                                #maxDamge += 1
+                                tempVar = i
+                                inventory.remove(tempVar)
+                                startBattle.battle.changeStats("MD", 1)
                                 print("Your minimum and maximum damage increased by 1!")
         if gate != "none":
-            print("We have a gate")
             if gate == "RGBYN" and RGBYGateOpen == False:
                 numberOfKeys = 0
                 for i in inventory:
@@ -145,6 +157,41 @@ class moving:
                             inventory.remove(i)
                         if i == "Green Key":
                             inventory.remove(i)
+        if worldgate == "2":
+            print("To be continued")
+            time.sleep(1)
+            print("Credits!!!!")
+            time.sleep(0.1)
+            print("Developers:")
+            time.sleep(0.1)
+            print("Ayrton Ferguson")
+            time.sleep(0.1)
+            print("")
+            time.sleep(0.1)
+            print("Descriptors:")
+            time.sleep(0.1)
+            print("Ayrton Ferguson")
+            time.sleep(0.1)
+            print("")
+            time.sleep(0.1)
+            print("Funders:")
+            time.sleep(0.1)
+            print("Ayrton Inc")
+            time.sleep(0.1)
+            print("")
+            time.sleep(0.1)
+            print("Motivation givers:")
+            time.sleep(0.1)
+            print("Ayrton Ferguson")
+            time.sleep(0.1)
+            print("And you, the player.")
+            time.sleep(0.1)
+            print("")
+            time.sleep(0.1)
+            print("Thank you for playing")
+            time.sleep(15)
+            print("Also Andrew and Ollie for sitting at my table")
+            sys.exit()
     def fromRoom(currentRoomX, currentRoomY):
         global rooms
         global RGBYGateOpen
@@ -181,7 +228,7 @@ class moving:
             for room in allowedRooms:
                 if room == "W":
                     print("West from here, (W)")
-            print("Please pick which room corrosponding to the letter.")
+            print("Please pick which room corrosponding to the letter. Alternatively, you can type 'Inventory' to see your inventory.")
             roomChosen = input("")
             roomChosen.capitalize()
             if roomChosen in allowedRooms:
@@ -210,3 +257,10 @@ class moving:
                     inventory.append("Blue Key")
                 else:
                     print("bro")
+    def movementLoad(roomsBeenTo, inventorySave):
+        global beenToRooms
+        global inventory
+        beenToRooms = roomsBeenTo
+        inventory = inventorySave
+    def heatDeath():
+        sys.exit(0)

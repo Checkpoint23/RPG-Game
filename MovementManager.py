@@ -54,7 +54,7 @@ class roomMovement:
             "none", #treasure
             False, #encounterEnemy?
             0, #chanceofEncounter
-            "You arrive at the World Gate, showing you the path to a brand new area. After defeating the mimic, something stirs inside of you. A longing, for adventure. TO BE CONTINUED!!!", #description
+            "You arrive at the World Gate, showing you the path to a brand new area. After defeating the mimic, something stirs inside of you. A longing, for adventure.", #description
             "none", #Gate?
             "none", #Boss
             "2", #worldGate
@@ -134,7 +134,7 @@ class roomMovement:
             50, #chanceofEncounter
             "Northward lies the entrance of a valley.", #description
             "none", #Gate?
-            "Mimic", #Boss
+            "none", #Boss
             "none", #worldGate
             "none" #quest
         )
@@ -147,7 +147,7 @@ class roomMovement:
             50, #chanceofEncounter
             "As you enter the field, you notice you are about a kilometer away from the mountains. Northward lies a split between the two mountains. Southward, more plains. Eastward lies more plains as well.", #description
             "none", #Gate?
-            "Mimic", #Boss
+            "none", #Boss
             "none", #worldGate
             "none" #quest
         )
@@ -160,7 +160,7 @@ class roomMovement:
             50, #chanceofEncounter
             "As you enter the field, you notice you are surrounded by fields on all sides, except for northwards, which has mountains.", #description
             "none", #Gate?
-            "Mimic", #Boss
+            "none", #Boss
             "none", #worldGate
             "none" #quest
         )
@@ -173,7 +173,7 @@ class roomMovement:
             40, #chanceofEncounter
             "As you leave the mountain pass, you notice that the fields strech out in the directions in which the mountains aren't present.", #description
             "none", #Gate?
-            "Mimic", #Boss
+            "none", #Boss
             "none", #worldGate
             "none" #quest
         )
@@ -186,7 +186,7 @@ class roomMovement:
             20, #chanceofEncounter
             "As you leave the area of the gates, you enter a pass between the two mountains. In front of you appears to be a large stretch of fields.", #description
             "none", #Gate?
-            "Mimic", #Boss
+            "none", #Boss
             "none", #worldGate
             "none" #quest
         )

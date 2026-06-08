@@ -1,5 +1,6 @@
 import random
 import math
+import startBattle
 
 enemyTypeWorld1 = ["goblin", "boulderman", "slime"]
 enemyStatHealthWorld1 = [5,15,10]
@@ -8,7 +9,7 @@ enemyStatMinDamageWorld1 = [5,1,2]
 enemyStatMaxDamgeWorld1 = [15,10,4]
 
 class fightEnemy:
-    def whatEnemy (enemyList, enemyHealth, LenemyBDamage, LenemyMinDamage, LenemyMaxDamage, startingPlayerHealth, startingPlayerMana):
+    def whatEnemy (enemyList, enemyHealth, LenemyBDamage, LenemyMinDamage, LenemyMaxDamage, startingPlayerHealth, startingPlayerMana, PlayerMinDamage, PlayerMaxDamage, PlayerBonusDamage):
         global enemy
         global health
         global enemyBDamage
@@ -18,6 +19,9 @@ class fightEnemy:
         global playerHealth
         global mana
         global bonusHP
+        global playerMinDamage
+        global playerMaxDamage
+        global playerBonusDamage
         lenEnemy = (len(enemyList))
         idx = random.randint(1, lenEnemy) - 1
         enemy = enemyList[idx]
@@ -28,11 +32,14 @@ class fightEnemy:
         enemyAlive = True
         playerHealth = startingPlayerHealth
         mana = startingPlayerMana
+        playerMinDamage = PlayerMinDamage
+        playerMaxDamage = PlayerMaxDamage
+        playerBonusDamage = PlayerBonusDamage
         bonusHP = 0
         return enemy, health, enemyBDamage, enemyMinDamage, enemyMaxDamage, enemyAlive, playerHealth
     def beginBattle (enemy):
         print(f"{enemy} appeared")
-    def yourTurn (enemy, yourBDamge, yourMinDamage, yourMaxDamage):
+    def yourTurn (enemy):
         global health
         global playerHealth
         global enemyAlive
@@ -49,7 +56,7 @@ class fightEnemy:
                 print(f"You can 1: Fight, 2: Use magic, 3: Block")
                 choice = input("")
         if choice == "1":
-            damage = random.randint(yourMinDamage, yourMaxDamage) + yourBDamge
+            damage = random.randint(playerMinDamage, playerMaxDamage) + playerBonusDamage
             health -= damage
             if health <= 0:
                 print(f"You did {damage} damage, and killed {enemy}")
@@ -76,7 +83,7 @@ class fightEnemy:
                     spell = input("")
             if spell == "1":
                 if mana >= 15:
-                    damage = random.randint(yourMinDamage, yourMaxDamage) + yourBDamge + 5
+                    damage = random.randint(playerMinDamage, playerMaxDamage) + playerBonusDamage + 5
                     health -= damage
                     mana -= 15
                     if health <= 0:
@@ -98,7 +105,7 @@ class fightEnemy:
                     print("You don't have enough mana!")
                     print(f"You only had {mana} mana, but you needed 15 mana.")
             if spell == 3:
-                damage = random.randint(yourMinDamage, yourMaxDamage) + yourBDamge
+                damage = random.randint(playerMinDamage, playerMaxDamage) + playerBonusDamage
                 health -= damage
                 if health <= 0:
                     print(f"You did {damage} damage, and killed {enemy}")
@@ -107,18 +114,33 @@ class fightEnemy:
                 print(f"You did {damage} damage!")
                 print(f"{enemy} has {health} health left.")
             if spell == 4:
-                manaGain = random.randint(1, math.floor((mana*1.5)+5))
+                manaGain = (0.0000405 * ((mana-30) ** 3)) - (0.01 * ((mana-50) ** 2))
+                manaGain -= 39
+                manaGain -= manaGain * 2
+                if mana >= 150:
+                    manaGain = 9
+                manaGain = math.floor(manaGain)
                 mana += manaGain
                 print(f"You gained {manaGain} mana!")
-                bonusHP = random.randint(1, math.floor(playerHealth/3))
+                if playerHealth < 5:
+                    bonusHP = random.randint(1,3)
+                else:
+                    bonusHP = random.randint(1, math.floor(playerHealth/3))
                 print(f"You will block up to {bonusHP} damage this round.")
         if choice == "3":
-            if playerHealth > 0:
-                manaGain = random.randint(1, math.floor((mana*1.5)+5))
-                mana += manaGain
-                print(f"You gained {manaGain} mana!")
+            manaGain = (0.0000405 * ((mana-30) ** 3)) - (0.01 * ((mana-50) ** 2))
+            manaGain -= 39
+            manaGain -= manaGain * 2
+            if mana >= 150:
+                manaGain = 9
+            manaGain = math.floor(manaGain)
+            mana += manaGain
+            print(f"You gained {manaGain} mana!")
+            if playerHealth < 5:
+                bonusHP = random.randint(1,3)
+            else:
                 bonusHP = random.randint(1, math.floor(playerHealth/3))
-                print(f"You will block up to {bonusHP} damage this round.")
+            print(f"You will block up to {bonusHP} damage this round.")
 
     def theirTurn (enemy):
         global health
@@ -160,7 +182,7 @@ class fightEnemy:
                 if playerHealth > 0:
                     print(f"You have {playerHealth} health left.")
                 else:
-                    print(f"You died lol")
+                    startBattle.battle.onDeath()
                     return
         if enemy == "goblin":
             print("Goblin uses Goblin Shenanigins")
@@ -184,7 +206,7 @@ class fightEnemy:
                 if playerHealth > 0:
                     print(f"You have {playerHealth} health left.")
                 else:
-                    print(f"You died lol")
+                    startBattle.battle.onDeath()
                     return
             if health == 5:
                 print("Goblin increases his health by 1!")
@@ -211,7 +233,7 @@ class fightEnemy:
                 if playerHealth > 0:
                     print(f"You have {playerHealth} health left.")
                 else:
-                    print(f"You died lol")
+                    startBattle.battle.onDeath()
                     return 
             if health == 1:
                 print("Goblin resets his health to 5!")
@@ -241,5 +263,5 @@ class fightEnemy:
                 if playerHealth > 0:
                     print(f"You have {playerHealth} health left.")
                 else:
-                    print(f"You died lol")
+                    startBattle.battle.onDeath()
                     return

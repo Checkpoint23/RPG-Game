@@ -1,5 +1,6 @@
 import random
 import math
+import startBattle
 
 enemyAlive = True
 
@@ -96,18 +97,33 @@ class MIMIC():
                 print(f"You did {damage} damage!")
                 print(f"The Mimic has {health} health left.")
             if spell == 4:
-                manaGain = random.randint(1, math.floor((mana*1.5)+5))
+                manaGain = (0.0000405 * ((mana-30) ** 3)) - (0.01 * ((mana-50) ** 2))
+                manaGain -= 39
+                manaGain -= manaGain * 2
+                if mana >= 150:
+                    manaGain = 9
+                manaGain = math.floor(manaGain)
                 mana += manaGain
                 print(f"You gained {manaGain} mana!")
-                bonusHP = random.randint(1, math.floor(playerHealth/3))
+                if playerHealth < 5:
+                    bonusHP = random.randint(1,3)
+                else:
+                    bonusHP = random.randint(1, math.floor(playerHealth/3))
                 print(f"You will block up to {bonusHP} damage this round.")
         if choice == "3":
-            if playerHealth > 0:
-                manaGain = random.randint(1, math.floor((mana*1.25)+5))
-                mana += manaGain
-                print(f"You gained {manaGain} mana!")
+            manaGain = (0.0000405 * ((mana-30) ** 3)) - (0.01 * ((mana-50) ** 2))
+            manaGain -= 39
+            manaGain -= manaGain * 2
+            if mana >= 150:
+                manaGain = 9
+            manaGain = math.floor(manaGain)
+            mana += manaGain
+            print(f"You gained {manaGain} mana!")
+            if playerHealth < 5:
+                bonusHP = random.randint(1,3)
+            else:
                 bonusHP = random.randint(1, math.floor(playerHealth/3))
-                print(f"You will block up to {bonusHP} damage this round.")
+            print(f"You will block up to {bonusHP} damage this round.")
     def mimicsTurn():
         global yourBDamage
         global health
@@ -150,6 +166,7 @@ class MIMIC():
             print("The Mimic used Vampiric bite!")
             damage = random.randint(1,4)
             health += damage
+            playerHealth -= damage
         if choice == 7 or choice == 8:
             print("The mimic uses Pounce!")
             damage = random.randint(1,4)
@@ -183,3 +200,6 @@ class MIMIC():
                 playerHealth -= damage
         if choice == 10:
             print("The mimic missed their attack!")
+        if playerHealth <= 0:
+            startBattle.battle.onDeath()
+            return
