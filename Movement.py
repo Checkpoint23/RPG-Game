@@ -9,6 +9,7 @@ inventory=[]
 beenToRooms=[]
 questlog=[]
 RGBYGateOpen=False
+inventory.append("Rusted Sword")
 
 class moving:
     def addRoom(x,y,worldType,treasure,encounterPossible,encounterChance,desc,gate,boss,worldGate,quest):
