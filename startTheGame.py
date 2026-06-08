@@ -27,11 +27,12 @@ class start:
                 loadedData["Current Mana"],
                 loadedData["Current Minimum Damage"],
                 loadedData["Current Maximum Damage"],
-                loadedData["Current Bonus Damage"]
+                loadedData["Current Bonus Damage"],
             )
             Movement.moving.movementLoad(
                 roomsBeenTo=loadedData["Rooms the player has been to"],
-                inventorySave=loadedData["Inventory"]
+                inventorySave=loadedData["Inventory"],
+                loadquestlog=loadedData["Quest Log"]
             )
             startBattle.battle.setPlayerStats(loadedData["Current HP"],loadedData["Current Mana"],loadedData["Current Minimum Damage"],loadedData["Current Maximum Damage"],loadedData["Current Bonus Damage"])
             MovementManager.roomMovement.SetCurrentRoom(

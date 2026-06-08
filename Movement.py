@@ -6,7 +6,6 @@ import time
 
 rooms = []
 inventory=[]
-questlog=[]
 beenToRooms=[]
 RGBYGateOpen=False
 
@@ -40,6 +39,7 @@ class moving:
         global RGBYGateOpen
         global rooms
         global inventory
+        global questlog
         beenHere = False
         roomsBeenIn = 0
         for room in rooms:
@@ -112,7 +112,7 @@ class moving:
                 print("I've lost my precious ring! Can you find it for me! If you do, I'll teach you about hitting stronger consistently!")
                 print("This seems important. Quest added to your questlog!")
                 questlog.append("Help find the ladies missing ring! If you do, you'll be taught how to hit stronger more consistently.")
-                for i in inventory():
+                for i in inventory:
                     if i == "Ring":
                         print("You already have my precious ring! Here, I'll teach you now!")
                         tempVar = i
@@ -122,11 +122,12 @@ class moving:
             elif quest == "Ring" and beenHere == True:
                 for i in questlog:
                     if i == ("Help find the ladies missing ring! If you do, you'll be taught how to hit stronger more consistently."):
-                        for i in inventory():
+                        for i in inventory:
                             if i == "Ring":
                                 print("You've found my precious ring! Thank you so much! Let me teach you.")
                                 tempVar = i
-                                inventory.remove(tempVar)
+                                inventory.remove("Ring")
+                                questlog.remove("Help find the ladies missing ring! If you do, you'll be taught how to hit stronger more consistently.")
                                 startBattle.battle.changeStats("MD", 1)
                                 print("Your minimum and maximum damage increased by 1!")
         if gate != "none":
@@ -257,10 +258,12 @@ class moving:
                     inventory.append("Blue Key")
                 else:
                     print("bro")
-    def movementLoad(roomsBeenTo, inventorySave):
+    def movementLoad(roomsBeenTo, inventorySave, loadquestlog):
         global beenToRooms
         global inventory
+        global questlog
         beenToRooms = roomsBeenTo
         inventory = inventorySave
+        questlog = loadquestlog
     def heatDeath():
         sys.exit(0)
