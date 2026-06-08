@@ -7,6 +7,7 @@ import time
 rooms = []
 inventory=[]
 beenToRooms=[]
+questlog=[]
 RGBYGateOpen=False
 
 class moving:
@@ -71,7 +72,7 @@ class moving:
         else:
             print("You've been here before!")
         if x == 5 and y == 3:
-            startBattle.battle.save(x,y,world,beenToRooms,inventory,questlog)
+            startBattle.battle.save(x=x,y=y,world=world,beenToRooms=beenToRooms,inventory=inventory,questlog=questlog)
         if encounter == True and beenHere == False:
             doAFight = random.randint(1,100)
             if doAFight <= encounterChance:
