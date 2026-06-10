@@ -1,1 +1,3 @@
-import startTheGame;startTheGame.start 
+import startTheGame
+
+startTheGame.start

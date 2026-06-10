@@ -35,6 +35,7 @@ class battle:
             sys.exit()
         else:
             print("You fell in battle. Without the power of having a stored memory, your body stays there defeated. And thus, the world turns to dust.")
+            sys.exit()
 
     def selectEnemyWorld (world):
         global maxPlayerHealth
